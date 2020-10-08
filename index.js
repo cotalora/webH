@@ -14,29 +14,23 @@ restService.use(
 restService.use(bodyParser.json());
 
 restService.post("/echo", function(req, res) {
-  var speech =
-    req.body.queryResult &&
-    req.body.queryResult.parameters &&
-    req.body.queryResult.parameters.echoText
-      ? req.body.queryResult.parameters.echoText
-      : "Seems like some problem. Speak again."+req.body;
-  return res.json({
+  if (req.body.queryResult.action == "input.welcome") {
 
-  "fulfillmentText": speech,
-  "fulfillmentMessages": [
-    {
-      "text": {
-        "text": [speech]
-      }
-    }
-  ],
-  "source": "<webhookpn1>"
-
-
-  });
+    let msj = 
+    "¡Hola, soy tu chatBot de la saga de los libros de  Geralt de Rivia! ¿Sobre qué libro quieres conocer?"+
+    "  \n1. El último deseo."+
+    "  \n2. La espada del destino."+
+    "  \n3. La sangre de los elfos."+
+    "  \n4. Tiempo de odio."+
+    "  \n5. Bautismo de fuego.";
+    response = msj
+    res.json({
+        "fulfillmentText": response
+    });
+}
 });
 
 
-restService.listen(process.env.PORT || 8000, function() {
+restService.listen(port, function() {
   console.log("Server up and listening");
 });
