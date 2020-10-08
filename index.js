@@ -7,13 +7,13 @@ const restService = express();
 
 restService.use(
   bodyParser.urlencoded({
-    extended: true
+    extended: false
   })
 );
 
 restService.use(bodyParser.json());
 
-restService.post("/echo", function(req, res) {
+restService.post("/", function(req, res) {
   if (req.body.queryResult.action == "input.welcome") {
 
     let msj = 
